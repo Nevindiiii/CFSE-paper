@@ -12,6 +12,7 @@ interface NoteModalProps {
   initial?: NotePayload | null
   onSave: (values: NoteFormValues) => void
   onClose: () => void
+  saving?: boolean
 }
 
 const emptyValues: NoteFormValues = {
@@ -22,7 +23,7 @@ const emptyValues: NoteFormValues = {
   image: '',
 }
 
-export default function NoteModal({ open, initial, onSave, onClose }: NoteModalProps) {
+export default function NoteModal({ open, initial, onSave, onClose, saving = false }: NoteModalProps) {
   const [values, setValues] = useState<NoteFormValues>(emptyValues)
   const [errors, setErrors] = useState<NoteFormErrors>({})
 
@@ -70,9 +71,12 @@ export default function NoteModal({ open, initial, onSave, onClose }: NoteModalP
         </CardContent>
 
         <CardFooter className="gap-3 border-t pt-4">
-          <Button variant="outline" className="flex-1" onClick={onClose}>Cancel</Button>
-          <Button className="flex-1" onClick={handleSave}>
-            {isEditing ? 'Save changes' : 'Add Note'}
+          <Button variant="outline" className="flex-1" onClick={onClose} disabled={saving}>Cancel</Button>
+          <Button className="flex-1" onClick={handleSave} disabled={saving}>
+            {saving
+              ? <span className="flex items-center gap-2"><span className="h-4 w-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />Saving…</span>
+              : isEditing ? 'Save changes' : 'Add Note'
+            }
           </Button>
         </CardFooter>
       </Card>

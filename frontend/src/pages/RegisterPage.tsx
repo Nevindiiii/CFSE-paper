@@ -1,10 +1,12 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Eye, EyeOff, UserPlus } from 'lucide-react'
+import { useAuth } from '@/context/AuthContext'
+import { registerApi } from '@/services/authService'
 
 interface FormFields {
   name: string
@@ -26,6 +28,9 @@ export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [apiError, setApiError] = useState('')
+  const { login } = useAuth()
+  const navigate = useNavigate()
 
   const validate = (): FormErrors => {
     const e: FormErrors = {}
@@ -51,10 +56,17 @@ export default function RegisterPage() {
     const validation = validate()
     if (Object.keys(validation).length > 0) return setErrors(validation)
     setLoading(true)
-    // API call will go here
-    await new Promise(r => setTimeout(r, 800))
-    setLoading(false)
-    console.log('Register:', { name: form.name, email: form.email, password: form.password })
+    setApiError('')
+    try {
+      const { data } = await registerApi(form.name, form.email, form.password)
+      login(data.token)
+      navigate('/dashboard')
+    } catch (err: unknown) {
+      const msg = (err as { response?: { data?: { message?: string } } }).response?.data?.message
+      setApiError(msg ?? 'Registration failed. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -72,6 +84,11 @@ export default function RegisterPage() {
         <Card className="shadow-lg border-0">
           <form onSubmit={handleSubmit} noValidate>
             <CardContent className="space-y-5 pt-6">
+              {apiError && (
+                <div className="rounded-md bg-destructive/10 border border-destructive/20 px-3 py-2 text-sm text-destructive">
+                  {apiError}
+                </div>
+              )}
 
               <div className="space-y-1.5">
                 <Label htmlFor="name">Full name</Label>
