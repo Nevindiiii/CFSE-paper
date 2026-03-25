@@ -136,7 +136,7 @@ export default function LoginPage() {
         <h1 className="text-2xl font-bold mb-6">Nice to see you again</h1>
         {formContent}
         <div className="mt-auto pt-10 flex items-center justify-center gap-2">
-          <img src={logo} alt="logo" className="w-6 h-6" />
+          <img src={logoDark} alt="logo" className="w-6 h-6" />
           <span className="font-semibold text-base">Venture</span>
         </div>
       </div>
@@ -171,7 +171,7 @@ export default function LoginPage() {
         {/* Right form panel */}
         <div className="flex flex-col justify-center px-14 py-12 bg-white" style={{ width: '51%' }}>
           <div className="flex items-center gap-2 mb-8">
-            <img src={logo} alt="logo" className="w-6 h-6" />
+            <img src={logoDark} alt="logo" className="w-6 h-6" />
             <span className="font-semibold text-base">Venture</span>
           </div>
           <h1 className="text-2xl font-bold mb-6">Nice to see you again</h1>

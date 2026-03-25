@@ -1,165 +1,99 @@
-import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { StickyNote, LayoutDashboard, User, Menu, X, LogOut, Zap, ChevronLeft, ChevronRight } from 'lucide-react'
+import {
+  LayoutDashboard, Bell, StickyNote, CheckSquare, Mail, Calendar,
+  BarChart2, Users, Building2, Puzzle, Settings, ChevronDown
+} from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/context/AuthContext'
+import logo from '@/assets/Logogram (1).png'
 
-const navItems = [
+const mainNav = [
   { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { to: '/notifications', label: 'Notifications', icon: Bell },
   { to: '/notes', label: 'Notes', icon: StickyNote },
-  { to: '/profile', label: 'Profile', icon: User },
+  { to: '/tasks', label: 'Tasks', icon: CheckSquare },
+  { to: '/emails', label: 'Emails', icon: Mail, hasArrow: true },
+  { to: '/calendars', label: 'Calendars', icon: Calendar },
 ]
 
-function Brand({ collapsed }: { collapsed: boolean }) {
+const dbNav = [
+  { to: '/analytics', label: 'Analytics', icon: BarChart2 },
+  { to: '/contacts', label: 'Contacts', icon: Users },
+  { to: '/companies', label: 'Companies', icon: Building2 },
+]
+
+const bottomNav = [
+  { to: '/integrations', label: 'Integrations', icon: Puzzle },
+  { to: '/settings', label: 'Settings', icon: Settings },
+]
+
+function NavItem({ to, label, icon: Icon, hasArrow, collapsed }: { to: string; label: string; icon: React.ElementType; hasArrow?: boolean; collapsed?: boolean }) {
   return (
-    <div className={cn('flex items-center border-b border-black/8 transition-all duration-300', collapsed ? 'justify-center px-0 py-5' : 'gap-3 px-5 py-5')}>
-      <div className="w-8 h-8 rounded-lg bg-black flex items-center justify-center shrink-0">
-        <Zap size={15} className="text-white" fill="white" />
-      </div>
-      {!collapsed && (
-        <div>
-          <p className="text-black font-bold text-sm tracking-wide leading-none">CRM App</p>
-          <p className="text-black/40 text-[10px] mt-0.5 tracking-widest uppercase">Workspace</p>
-        </div>
+    <NavLink
+      to={to}
+      title={collapsed ? label : undefined}
+      className={({ isActive }) =>
+        cn(
+          'flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors',
+          collapsed ? 'justify-center px-2' : '',
+          isActive
+            ? 'bg-gray-100 text-gray-900 font-medium'
+            : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'
+        )
+      }
+    >
+      {({ isActive }) => (
+        <>
+          <Icon size={16} className={isActive ? 'text-gray-900' : 'text-gray-400'} />
+          {!collapsed && <span className="flex-1">{label}</span>}
+          {!collapsed && hasArrow && <ChevronDown size={14} className="text-gray-400" />}
+        </>
       )}
-    </div>
+    </NavLink>
   )
 }
 
-function NavItems({ collapsed, onClose }: { collapsed: boolean; onClose?: () => void }) {
-  return (
-    <nav className="flex-1 px-2 py-4 space-y-0.5">
-      {!collapsed && (
-        <p className="text-black/30 text-[10px] font-semibold tracking-widest uppercase px-3 mb-3">Menu</p>
-      )}
-      {navItems.map(({ to, label, icon: Icon }) => (
-        <NavLink
-          key={to}
-          to={to}
-          onClick={onClose}
-          title={collapsed ? label : undefined}
-          className={({ isActive }) =>
-            cn(
-              'group relative flex items-center rounded-xl text-sm transition-all duration-200',
-              collapsed ? 'justify-center px-0 py-2.5 mx-1' : 'gap-3 px-3 py-2.5',
-              isActive
-                ? 'bg-black text-white font-medium'
-                : 'text-black/70 hover:bg-black hover:text-white'
-            )
-          }
-        >
-          {({ isActive }) => (
-            <>
-              <span className={cn(
-                'flex items-center justify-center w-7 h-7 rounded-lg transition-all duration-200 shrink-0',
-                isActive ? 'text-white' : 'text-black/60 group-hover:text-white'
-              )}>
-                <Icon size={15} />
-              </span>
-              {!collapsed && <span className="tracking-wide">{label}</span>}
-              {!collapsed && isActive && (
-                <span className="ml-auto w-1.5 h-1.5 rounded-full bg-white" />
-              )}
-            </>
-          )}
-        </NavLink>
-      ))}
-    </nav>
-  )
-}
-
-function BottomSection({ collapsed, onLogout }: { collapsed: boolean; onLogout: () => void }) {
-  return (
-    <div className={cn('py-4 border-t border-black/8 space-y-1', collapsed ? 'px-2' : 'px-2')}>
-      {!collapsed && (
-        <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl">
-          <div className="w-7 h-7 rounded-lg bg-black flex items-center justify-center shrink-0">
-            <User size={13} className="text-white" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-black/80 text-xs font-medium truncate">My Account</p>
-            <p className="text-black/40 text-[10px] truncate">user@example.com</p>
-          </div>
-        </div>
-      )}
-      <button
-        onClick={onLogout}
-        title={collapsed ? 'Sign out' : undefined}
-        className={cn(
-          'w-full group flex items-center rounded-xl text-sm text-black/50 hover:bg-black hover:text-white transition-all duration-200',
-          collapsed ? 'justify-center px-0 py-2.5 mx-1' : 'gap-3 px-3 py-2.5'
-        )}
-      >
-        <span className="flex items-center justify-center w-7 h-7 rounded-lg transition-all duration-200 shrink-0">
-          <LogOut size={14} />
-        </span>
-        {!collapsed && <span className="tracking-wide">Sign out</span>}
-      </button>
-    </div>
-  )
-}
-
-export default function Sidebar({ onCollapse }: { onCollapse?: (c: boolean) => void }) {
-  const [open, setOpen] = useState(false)
-  const [collapsed, setCollapsed] = useState(false)
+export default function Sidebar({ collapsed = false, onCollapse: _ }: { collapsed?: boolean; onCollapse?: (c: boolean) => void }) {
   const { logout } = useAuth()
   const navigate = useNavigate()
 
-  const handleLogout = () => { logout(); navigate('/login') }
-
-  const toggleCollapse = () => {
-    const next = !collapsed
-    setCollapsed(next)
-    onCollapse?.(next)
-  }
-
-  const sidebarBase = 'flex flex-col h-full bg-white text-black border-r border-black/10 transition-all duration-300'
-
   return (
-    <>
-      {/* Mobile top bar */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-40 h-14 bg-white flex items-center px-4 border-b border-black/10">
-        <button onClick={() => setOpen(true)} className="text-black/60 hover:text-black p-1 transition-colors">
-          <Menu size={22} />
-        </button>
-        <span className="ml-3 text-black font-bold text-base tracking-wide">CRM App</span>
+    <aside className={cn(
+      'hidden lg:flex flex-col min-h-screen bg-white border-r border-gray-200 shrink-0 transition-all duration-300',
+      collapsed ? 'w-14' : 'w-52'
+    )}>
+      {/* Brand */}
+      <div className={cn('flex items-center gap-2 px-4 py-4 border-b border-gray-100', collapsed && 'justify-center px-2')}>
+        <img src={logo} alt="logo" className="w-6 h-6 shrink-0" />
+        {!collapsed && <span className="font-semibold text-gray-900 text-sm">Venture</span>}
       </div>
 
-      {/* Mobile overlay */}
-      {open && (
-        <div className="lg:hidden fixed inset-0 z-40 bg-black/40 backdrop-blur-sm" onClick={() => setOpen(false)} />
-      )}
+      <div className="flex-1 overflow-y-auto py-3 px-2 space-y-0.5">
+        {mainNav.map(item => <NavItem key={item.to} {...item} collapsed={collapsed} />)}
 
-      {/* Mobile drawer */}
-      <aside className={cn(
-        'lg:hidden fixed top-0 left-0 z-50 h-full w-64 transition-transform duration-300 ease-in-out',
-        sidebarBase,
-        open ? 'translate-x-0' : '-translate-x-full'
-      )}>
-        <div className="flex items-center justify-between pr-4">
-          <Brand collapsed={false} />
-          <button onClick={() => setOpen(false)} className="text-black/40 hover:text-black transition-colors">
-            <X size={18} />
-          </button>
+        {!collapsed && <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest px-3 pt-4 pb-1">Database</p>}
+        {collapsed && <div className="my-2 border-t border-gray-100" />}
+        {dbNav.map(item => <NavItem key={item.to} {...item} collapsed={collapsed} />)}
+      </div>
+
+      <div className="px-2 py-3 border-t border-gray-100 space-y-0.5">
+        {bottomNav.map(item => <NavItem key={item.to} {...item} collapsed={collapsed} />)}
+      </div>
+
+      {/* Workspace footer */}
+      <div className={cn('px-3 py-3 border-t border-gray-100 flex items-center gap-2', collapsed && 'justify-center px-2')}>
+        <div className="w-6 h-6 rounded bg-gray-800 flex items-center justify-center shrink-0">
+          <span className="text-white text-[10px] font-bold">M</span>
         </div>
-        <NavItems collapsed={false} onClose={() => setOpen(false)} />
-        <BottomSection collapsed={false} onLogout={handleLogout} />
-      </aside>
-
-      {/* Desktop sidebar */}
-      <aside className={cn('hidden lg:flex min-h-screen flex-col relative', sidebarBase, collapsed ? 'w-16' : 'w-64')}>
-        <Brand collapsed={collapsed} />
-        <NavItems collapsed={collapsed} />
-        <BottomSection collapsed={collapsed} onLogout={handleLogout} />
-
-        {/* Collapse toggle button */}
-        <button
-          onClick={toggleCollapse}
-          className="absolute -right-3 top-6 z-10 w-6 h-6 rounded-full bg-white border border-black/15 shadow-sm flex items-center justify-center text-black/50 hover:text-black hover:shadow-md transition-all duration-200"
-        >
-          {collapsed ? <ChevronRight size={12} /> : <ChevronLeft size={12} />}
-        </button>
-      </aside>
-    </>
+        {!collapsed && (
+          <>
+            <span className="text-xs text-gray-600 flex-1 truncate">Marketing Team's</span>
+            <button onClick={() => { logout(); navigate('/login') }} className="text-gray-400 hover:text-gray-600">
+              <ChevronDown size={14} />
+            </button>
+          </>
+        )}
+      </div>
+    </aside>
   )
 }

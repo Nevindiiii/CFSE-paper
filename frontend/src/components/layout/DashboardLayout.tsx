@@ -15,11 +15,11 @@ export default function DashboardLayout() {
   const [collapsed, setCollapsed] = useState(false)
 
   return (
-    <div className="flex min-h-screen">
-      <Sidebar onCollapse={setCollapsed} />
-      <div className="flex-1 flex flex-col min-w-0 transition-all duration-300">
-        <Header title={title} />
-        <main className="flex-1 p-4 md:p-6 bg-muted/30 mt-14 lg:mt-0">
+    <div className="flex min-h-screen bg-white">
+      <Sidebar collapsed={collapsed} />
+      <div className="flex-1 flex flex-col min-w-0">
+        <Header title={title} collapsed={collapsed} onToggleCollapse={() => setCollapsed(c => !c)} />
+        <main className="flex-1 bg-white overflow-auto">
           <Outlet />
         </main>
       </div>
