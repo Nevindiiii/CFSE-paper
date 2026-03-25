@@ -61,8 +61,8 @@ export default function ProfilePage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center gap-3 py-3 border-b">
-                <div className="w-8 h-8 rounded-md bg-blue-50 flex items-center justify-center">
-                  <User size={15} className="text-blue-600" />
+                <div className="w-8 h-8 rounded-md bg-muted flex items-center justify-center">
+                  <User size={15} className="text-foreground" />
                 </div>
                 <div>
                   <p className="text-xs text-muted-foreground">Full Name</p>
@@ -71,8 +71,8 @@ export default function ProfilePage() {
               </div>
 
               <div className="flex items-center gap-3 py-3 border-b">
-                <div className="w-8 h-8 rounded-md bg-purple-50 flex items-center justify-center">
-                  <Mail size={15} className="text-purple-600" />
+                <div className="w-8 h-8 rounded-md bg-muted flex items-center justify-center">
+                  <Mail size={15} className="text-foreground" />
                 </div>
                 <div>
                   <p className="text-xs text-muted-foreground">Email Address</p>
@@ -81,18 +81,18 @@ export default function ProfilePage() {
               </div>
 
               <div className="flex items-center gap-3 py-3 border-b">
-                <div className="w-8 h-8 rounded-md bg-green-50 flex items-center justify-center">
-                  <Shield size={15} className="text-green-600" />
+                <div className="w-8 h-8 rounded-md bg-muted flex items-center justify-center">
+                  <Shield size={15} className="text-foreground" />
                 </div>
                 <div>
                   <p className="text-xs text-muted-foreground">Account ID</p>
-                  <p className="text-sm font-medium font-mono text-xs">{profile._id}</p>
+                  <p className="text-xs font-medium font-mono">{profile._id}</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-3 py-3">
-                <div className="w-8 h-8 rounded-md bg-orange-50 flex items-center justify-center">
-                  <Calendar size={15} className="text-orange-600" />
+                <div className="w-8 h-8 rounded-md bg-muted flex items-center justify-center">
+                  <Calendar size={15} className="text-foreground" />
                 </div>
                 <div>
                   <p className="text-xs text-muted-foreground">Member Since</p>

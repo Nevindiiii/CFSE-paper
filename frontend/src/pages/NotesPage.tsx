@@ -7,9 +7,9 @@ import type { NoteFormValues, NoteStatus } from '@/components/notes/NoteForm'
 import { getNotesApi, createNoteApi, updateNoteApi, deleteNoteApi, type Note } from '@/services/noteService'
 
 const statusConfig: Record<NoteStatus, { label: string; className: string }> = {
-  pending:       { label: 'Pending',     className: 'bg-yellow-100 text-yellow-700 border border-yellow-200' },
-  'in-progress': { label: 'In Progress', className: 'bg-blue-100 text-blue-700 border border-blue-200' },
-  done:          { label: 'Done',        className: 'bg-green-100 text-green-700 border border-green-200' },
+  pending:       { label: 'Pending',     className: 'bg-white text-black border border-black' },
+  'in-progress': { label: 'In Progress', className: 'bg-zinc-800 text-white border border-zinc-800' },
+  done:          { label: 'Done',        className: 'bg-black text-white border border-black' },
 }
 
 const formatDate = (d: string) =>

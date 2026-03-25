@@ -12,13 +12,13 @@ const navItems = [
 
 function Brand() {
   return (
-    <div className="px-5 py-5 flex items-center gap-3 border-b border-white/8">
-      <div className="w-8 h-8 rounded-lg bg-linear-to-br from-blue-400 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30 shrink-0">
-        <Zap size={15} className="text-white" fill="white" />
+    <div className="px-5 py-5 flex items-center gap-3 border-b border-white/10">
+      <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shrink-0">
+        <Zap size={15} className="text-black" fill="black" />
       </div>
       <div>
         <p className="text-white font-bold text-sm tracking-wide leading-none">CRM App</p>
-        <p className="text-white/35 text-[10px] mt-0.5 tracking-widest uppercase">Workspace</p>
+        <p className="text-white/40 text-[10px] mt-0.5 tracking-widest uppercase">Workspace</p>
       </div>
     </div>
   )
@@ -37,7 +37,7 @@ function NavItems({ onClose }: { onClose?: () => void }) {
             cn(
               'group relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all duration-200',
               isActive
-                ? 'bg-white/10 text-white font-medium shadow-inner'
+                ? 'bg-white/10 text-white font-medium'
                 : 'text-white/50 hover:bg-white/6 hover:text-white/90'
             )
           }
@@ -45,19 +45,19 @@ function NavItems({ onClose }: { onClose?: () => void }) {
           {({ isActive }) => (
             <>
               {isActive && (
-                <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-blue-400 rounded-full shadow-[0_0_8px_2px_rgba(96,165,250,0.6)]" />
+                <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-white rounded-full" />
               )}
               <span className={cn(
                 'flex items-center justify-center w-7 h-7 rounded-lg transition-all duration-200',
                 isActive
-                  ? 'bg-blue-500/20 text-blue-300'
+                  ? 'bg-white/15 text-white'
                   : 'text-white/40 group-hover:bg-white/8 group-hover:text-white/80'
               )}>
                 <Icon size={15} />
               </span>
               <span className="tracking-wide">{label}</span>
               {isActive && (
-                <span className="ml-auto w-1.5 h-1.5 rounded-full bg-blue-400 shadow-[0_0_6px_2px_rgba(96,165,250,0.7)]" />
+                <span className="ml-auto w-1.5 h-1.5 rounded-full bg-white" />
               )}
             </>
           )}
@@ -69,9 +69,9 @@ function NavItems({ onClose }: { onClose?: () => void }) {
 
 function BottomSection({ onLogout }: { onLogout: () => void }) {
   return (
-    <div className="px-3 py-4 border-t border-white/8 space-y-1">
+    <div className="px-3 py-4 border-t border-white/10 space-y-1">
       <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl">
-        <div className="w-7 h-7 rounded-lg bg-linear-to-br from-violet-400 to-purple-600 flex items-center justify-center shrink-0 shadow-md shadow-purple-500/20">
+        <div className="w-7 h-7 rounded-lg bg-white/15 flex items-center justify-center shrink-0">
           <User size={13} className="text-white" />
         </div>
         <div className="flex-1 min-w-0">
@@ -102,12 +102,13 @@ export default function Sidebar() {
     navigate('/login')
   }
 
-  const sidebarClass = 'flex flex-col h-full bg-[hsl(222.2,47.4%,9%)] text-sidebar-foreground border-r border-white/6'
+  /* bg-sidebar = pure black defined in index.css --color-sidebar */
+  const sidebarClass = 'flex flex-col h-full bg-sidebar text-sidebar-foreground border-r border-white/10'
 
   return (
     <>
       {/* Mobile top bar */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-40 h-14 bg-[hsl(222.2,47.4%,9%)] flex items-center px-4 border-b border-white/8">
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-40 h-14 bg-sidebar flex items-center px-4 border-b border-white/10">
         <button onClick={() => setOpen(true)} className="text-white/60 hover:text-white p-1 transition-colors">
           <Menu size={22} />
         </button>

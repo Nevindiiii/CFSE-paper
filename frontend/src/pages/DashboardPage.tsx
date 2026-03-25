@@ -18,10 +18,10 @@ export default function DashboardPage() {
   const pending = notes.filter(n => n.status === 'pending').length
 
   const stats = [
-    { label: 'Total Notes', value: total, icon: StickyNote, color: 'text-blue-600', bg: 'bg-blue-50' },
-    { label: 'Pending', value: pending, icon: AlertCircle, color: 'text-yellow-600', bg: 'bg-yellow-50' },
-    { label: 'In Progress', value: inProgress, icon: Clock, color: 'text-purple-600', bg: 'bg-purple-50' },
-    { label: 'Completed', value: done, icon: CheckCircle, color: 'text-green-600', bg: 'bg-green-50' },
+    { label: 'Total Notes', value: total, icon: StickyNote, color: 'text-foreground', bg: 'bg-muted' },
+    { label: 'Pending', value: pending, icon: AlertCircle, color: 'text-foreground', bg: 'bg-muted' },
+    { label: 'In Progress', value: inProgress, icon: Clock, color: 'text-foreground', bg: 'bg-muted' },
+    { label: 'Completed', value: done, icon: CheckCircle, color: 'text-foreground', bg: 'bg-muted' },
   ]
 
   const recent = notes.slice(0, 5)
@@ -73,10 +73,10 @@ export default function DashboardPage() {
                     <p className="text-sm font-medium truncate">{note.title}</p>
                     <p className="text-xs text-muted-foreground truncate">{note.description || 'No description'}</p>
                   </div>
-                  <span className={`shrink-0 text-xs px-2 py-0.5 rounded-full font-medium ${
-                    note.status === 'done' ? 'bg-green-100 text-green-700' :
-                    note.status === 'in-progress' ? 'bg-blue-100 text-blue-700' :
-                    'bg-yellow-100 text-yellow-700'
+                  <span className={`shrink-0 text-xs px-2 py-0.5 rounded-full font-medium border ${
+                    note.status === 'done' ? 'bg-black text-white border-black' :
+                    note.status === 'in-progress' ? 'bg-zinc-800 text-white border-zinc-800' :
+                    'bg-white text-black border-black'
                   }`}>
                     {note.status === 'in-progress' ? 'In Progress' : note.status.charAt(0).toUpperCase() + note.status.slice(1)}
                   </span>
