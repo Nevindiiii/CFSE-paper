@@ -19,90 +19,92 @@ export default function ProfilePage() {
     new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
 
   return (
-    <div className="space-y-6 max-w-2xl">
-      <div>
-        <h2 className="text-xl font-semibold">Profile</h2>
-        <p className="text-sm text-muted-foreground mt-0.5">Your account information</p>
+    <div className="min-h-[calc(100vh-8rem)] flex items-center justify-center px-4">
+      <div className="space-y-6 w-full max-w-2xl">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold">Profile</h2>
+          <p className="text-sm text-muted-foreground mt-0.5">Your account information</p>
+        </div>
+
+        {loading && (
+          <div className="flex items-center justify-center py-20">
+            <Loader2 size={28} className="animate-spin text-muted-foreground" />
+          </div>
+        )}
+
+        {error && (
+          <div className="rounded-md bg-destructive/10 border border-destructive/20 px-4 py-3 text-sm text-destructive">
+            {error}
+          </div>
+        )}
+
+        {profile && (
+          <>
+            <Card>
+              <CardContent className="pt-6">
+                <div className="flex items-center gap-5">
+                  <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center shrink-0">
+                    <span className="text-2xl font-bold text-white">
+                      {profile.name.charAt(0).toUpperCase()}
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold">{profile.name}</h3>
+                    <p className="text-sm text-muted-foreground">{profile.email}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base">Account Details</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center gap-3 py-3 border-b">
+                  <div className="w-8 h-8 rounded-md bg-muted flex items-center justify-center">
+                    <User size={15} className="text-foreground" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground">Full Name</p>
+                    <p className="text-sm font-medium">{profile.name}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 py-3 border-b">
+                  <div className="w-8 h-8 rounded-md bg-muted flex items-center justify-center">
+                    <Mail size={15} className="text-foreground" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground">Email Address</p>
+                    <p className="text-sm font-medium">{profile.email}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 py-3 border-b">
+                  <div className="w-8 h-8 rounded-md bg-muted flex items-center justify-center">
+                    <Shield size={15} className="text-foreground" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground">Account ID</p>
+                    <p className="text-xs font-medium font-mono">{profile._id}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 py-3">
+                  <div className="w-8 h-8 rounded-md bg-muted flex items-center justify-center">
+                    <Calendar size={15} className="text-foreground" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground">Member Since</p>
+                    <p className="text-sm font-medium">{formatDate(profile.createdAt)}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </>
+        )}
       </div>
-
-      {loading && (
-        <div className="flex items-center justify-center py-20">
-          <Loader2 size={28} className="animate-spin text-muted-foreground" />
-        </div>
-      )}
-
-      {error && (
-        <div className="rounded-md bg-destructive/10 border border-destructive/20 px-4 py-3 text-sm text-destructive">
-          {error}
-        </div>
-      )}
-
-      {profile && (
-        <>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-5">
-                <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center shrink-0">
-                  <span className="text-2xl font-bold text-white">
-                    {profile.name.charAt(0).toUpperCase()}
-                  </span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold">{profile.name}</h3>
-                  <p className="text-sm text-muted-foreground">{profile.email}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-base">Account Details</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center gap-3 py-3 border-b">
-                <div className="w-8 h-8 rounded-md bg-muted flex items-center justify-center">
-                  <User size={15} className="text-foreground" />
-                </div>
-                <div>
-                  <p className="text-xs text-muted-foreground">Full Name</p>
-                  <p className="text-sm font-medium">{profile.name}</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 py-3 border-b">
-                <div className="w-8 h-8 rounded-md bg-muted flex items-center justify-center">
-                  <Mail size={15} className="text-foreground" />
-                </div>
-                <div>
-                  <p className="text-xs text-muted-foreground">Email Address</p>
-                  <p className="text-sm font-medium">{profile.email}</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 py-3 border-b">
-                <div className="w-8 h-8 rounded-md bg-muted flex items-center justify-center">
-                  <Shield size={15} className="text-foreground" />
-                </div>
-                <div>
-                  <p className="text-xs text-muted-foreground">Account ID</p>
-                  <p className="text-xs font-medium font-mono">{profile._id}</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 py-3">
-                <div className="w-8 h-8 rounded-md bg-muted flex items-center justify-center">
-                  <Calendar size={15} className="text-foreground" />
-                </div>
-                <div>
-                  <p className="text-xs text-muted-foreground">Member Since</p>
-                  <p className="text-sm font-medium">{formatDate(profile.createdAt)}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </>
-      )}
     </div>
   )
 }

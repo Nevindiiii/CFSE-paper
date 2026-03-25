@@ -18,10 +18,10 @@ export default function DashboardPage() {
   const pending = notes.filter(n => n.status === 'pending').length
 
   const stats = [
-    { label: 'Total Notes', value: total, icon: StickyNote, color: 'text-foreground', bg: 'bg-muted' },
-    { label: 'Pending', value: pending, icon: AlertCircle, color: 'text-foreground', bg: 'bg-muted' },
-    { label: 'In Progress', value: inProgress, icon: Clock, color: 'text-foreground', bg: 'bg-muted' },
-    { label: 'Completed', value: done, icon: CheckCircle, color: 'text-foreground', bg: 'bg-muted' },
+    { label: 'Total Notes', value: total, icon: StickyNote },
+    { label: 'Pending', value: pending, icon: AlertCircle },
+    { label: 'In Progress', value: inProgress, icon: Clock },
+    { label: 'Completed', value: done, icon: CheckCircle },
   ]
 
   const recent = notes.slice(0, 5)
@@ -33,24 +33,27 @@ export default function DashboardPage() {
         <p className="text-sm text-muted-foreground mt-0.5">Your notes at a glance</p>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {stats.map(({ label, value, icon: Icon, color, bg }) => (
-          <Card key={label}>
-            <CardContent className="pt-5 pb-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-xs text-muted-foreground font-medium">{label}</p>
-                  <p className="text-3xl font-bold mt-1">
-                    {loading ? <span className="text-muted-foreground text-xl">…</span> : value}
-                  </p>
+      {/* Sticky stat cards */}
+      <div className="sticky top-0 z-20 bg-muted/80 backdrop-blur-sm -mx-4 md:-mx-6 px-4 md:px-6 py-3">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {stats.map(({ label, value, icon: Icon }) => (
+            <Card key={label} className="shadow-sm">
+              <CardContent className="pt-5 pb-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xs text-muted-foreground font-medium">{label}</p>
+                    <p className="text-3xl font-bold mt-1">
+                      {loading ? <span className="text-muted-foreground text-xl">…</span> : value}
+                    </p>
+                  </div>
+                  <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
+                    <Icon size={18} className="text-foreground" />
+                  </div>
                 </div>
-                <div className={`w-10 h-10 rounded-full ${bg} flex items-center justify-center`}>
-                  <Icon size={18} className={color} />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
 
       <Card>

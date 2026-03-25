@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Sidebar from './Sidebar'
 import Header from './Header'
@@ -11,11 +12,12 @@ const pageTitles: Record<string, string> = {
 export default function DashboardLayout() {
   const { pathname } = useLocation()
   const title = pageTitles[pathname] ?? 'CRM'
+  const [collapsed, setCollapsed] = useState(false)
 
   return (
     <div className="flex min-h-screen">
-      <Sidebar />
-      <div className="flex-1 flex flex-col min-w-0">
+      <Sidebar onCollapse={setCollapsed} />
+      <div className="flex-1 flex flex-col min-w-0 transition-all duration-300">
         <Header title={title} />
         <main className="flex-1 p-4 md:p-6 bg-muted/30 mt-14 lg:mt-0">
           <Outlet />

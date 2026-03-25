@@ -1,5 +1,3 @@
-// Extends Vitest's expect with jest-dom matchers
+// Extends Vitest's expect with jest-dom matchers using the dedicated vitest entry
 // e.g. toBeInTheDocument(), toHaveValue(), toBeDisabled()
-import * as matchers from '@testing-library/jest-dom/matchers'
-import { expect } from 'vitest'
-expect.extend(matchers)
+import '@testing-library/jest-dom/vitest'
