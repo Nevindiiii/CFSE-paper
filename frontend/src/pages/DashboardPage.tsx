@@ -158,7 +158,7 @@ export default function DashboardPage() {
                 {barData.map((h, i) => (
                   <div key={i} className="flex-1 flex flex-col items-center justify-end gap-1" style={{ height: '100%' }}>
                     <div
-                      className={`w-full rounded-sm ${i === 6 ? 'bg-purple-600' : 'bg-gray-200'}`}
+                      className={`w-full rounded-sm ${i === 6 ? 'bg-gray-900' : 'bg-gray-200'}`}
                       style={{ height: `${h}%` }}
                     />
                     <span className="text-[9px] text-gray-400 shrink-0">{months[i]}</span>
