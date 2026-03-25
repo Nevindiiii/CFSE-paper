@@ -9,6 +9,7 @@ import NotesPage from '@/pages/NotesPage'
 import TasksPage from '@/pages/TasksPage'
 import ProfilePage from '@/pages/ProfilePage'
 import NotificationsPage from '@/pages/NotificationsPage'
+import AnalyticsPage from '@/pages/AnalyticsPage'
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
               <Route path="/tasks" element={<TasksPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/notifications" element={<NotificationsPage />} />
+              <Route path="/analytics" element={<AnalyticsPage />} />
             </Route>
           </Route>
           <Route path="*" element={<Navigate to="/login" replace />} />

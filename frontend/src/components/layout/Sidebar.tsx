@@ -59,7 +59,7 @@ export default function Sidebar({ collapsed = false, onCollapse: _ }: { collapse
 
   return (
     <aside className={cn(
-      'hidden lg:flex flex-col min-h-screen bg-white border-r border-gray-200 shrink-0 transition-all duration-300',
+      'hidden lg:flex flex-col h-screen sticky top-0 bg-white border-r border-gray-200 shrink-0 transition-all duration-300',
       collapsed ? 'w-14' : 'w-52'
     )}>
       {/* Brand */}

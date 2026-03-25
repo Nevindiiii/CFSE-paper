@@ -8,7 +8,7 @@ interface HeaderProps {
 
 export default function Header({ title: _, collapsed, onToggleCollapse }: HeaderProps) {
   return (
-    <header className="hidden lg:flex h-12 border-b border-gray-200 bg-white items-center px-4 gap-4 shrink-0">
+    <header className="hidden lg:flex h-12 border-b border-gray-200 bg-white items-center px-4 gap-4 shrink-0 sticky top-0 z-10">
       {/* Collapse toggle */}
       <button
         onClick={onToggleCollapse}
