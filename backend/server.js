@@ -9,7 +9,7 @@ const app = express();
 connectDB();
 
 app.use(cors({ origin: process.env.CLIENT_ORIGIN }));
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 
 app.get('/', (req, res) => res.json({ message: 'CRM API running' }));
 

@@ -13,6 +13,7 @@ interface NoteModalProps {
   onSave: (values: NoteFormValues) => void
   onClose: () => void
   saving?: boolean
+  error?: string
 }
 
 const emptyValues: NoteFormValues = {
@@ -23,7 +24,7 @@ const emptyValues: NoteFormValues = {
   image: '',
 }
 
-export default function NoteModal({ open, initial, onSave, onClose, saving = false }: NoteModalProps) {
+export default function NoteModal({ open, initial, onSave, onClose, saving = false, error = '' }: NoteModalProps) {
   const [values, setValues] = useState<NoteFormValues>(emptyValues)
   const [errors, setErrors] = useState<NoteFormErrors>({})
 
@@ -67,6 +68,11 @@ export default function NoteModal({ open, initial, onSave, onClose, saving = fal
         </CardHeader>
 
         <CardContent>
+          {error && (
+            <div className="mb-4 rounded-md bg-destructive/10 border border-destructive/20 px-3 py-2 text-sm text-destructive">
+              {error}
+            </div>
+          )}
           <NoteForm values={values} errors={errors} onChange={handleChange} />
         </CardContent>
 

@@ -19,6 +19,7 @@ export default function NotesPage() {
   const [notes, setNotes] = useState<Note[]>([])
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [saveError, setSaveError] = useState('')
   const [error, setError] = useState('')
   const [modalOpen, setModalOpen] = useState(false)
   const [editingNote, setEditingNote] = useState<Note | null>(null)
@@ -42,9 +43,9 @@ export default function NotesPage() {
     }
   }
 
-  const openAdd = () => { setEditingNote(null); setModalOpen(true) }
-  const openEdit = (note: Note) => { setEditingNote(note); setModalOpen(true) }
-  const closeModal = () => setModalOpen(false)
+  const openAdd = () => { setEditingNote(null); setSaveError(''); setModalOpen(true) }
+  const openEdit = (note: Note) => { setEditingNote(note); setSaveError(''); setModalOpen(true) }
+  const closeModal = () => { setModalOpen(false); setSaveError('') }
 
   const handleSave = async (values: NoteFormValues) => {
     setSaving(true)
@@ -57,8 +58,9 @@ export default function NotesPage() {
         setNotes(prev => [data, ...prev])
       }
       setModalOpen(false)
-    } catch {
-      // error stays in modal — don't close it
+    } catch (err: unknown) {
+      const msg = (err as { response?: { data?: { message?: string } } }).response?.data?.message
+      setSaveError(msg ?? 'Failed to save note. Please try again.')
     } finally {
       setSaving(false)
     }
@@ -177,6 +179,7 @@ export default function NotesPage() {
         onSave={handleSave}
         onClose={closeModal}
         saving={saving}
+        error={saveError}
       />
 
       {/* Delete Confirm Modal */}
