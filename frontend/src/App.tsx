@@ -6,6 +6,7 @@ import LoginPage from '@/pages/LoginPage'
 import RegisterPage from '@/pages/RegisterPage'
 import DashboardPage from '@/pages/DashboardPage'
 import NotesPage from '@/pages/NotesPage'
+import ProfilePage from '@/pages/ProfilePage'
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
             <Route element={<DashboardLayout />}>
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/notes" element={<NotesPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
             </Route>
           </Route>
           <Route path="*" element={<Navigate to="/login" replace />} />

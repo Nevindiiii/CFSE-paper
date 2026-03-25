@@ -33,4 +33,12 @@ const login = async (req, res, next) => {
   }
 };
 
-module.exports = { register, login };
+const getProfile = async (req, res, next) => {
+  try {
+    res.json(req.user);
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { register, login, getProfile };
