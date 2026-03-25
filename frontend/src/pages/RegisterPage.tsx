@@ -5,7 +5,6 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Eye, EyeOff, UserPlus } from 'lucide-react'
-import { useAuth } from '@/context/AuthContext'
 import { registerApi } from '@/services/authService'
 
 interface FormFields {
@@ -29,7 +28,6 @@ export default function RegisterPage() {
   const [showConfirm, setShowConfirm] = useState(false)
   const [loading, setLoading] = useState(false)
   const [apiError, setApiError] = useState('')
-  const { login } = useAuth()
   const navigate = useNavigate()
 
   const validate = (): FormErrors => {
@@ -58,9 +56,8 @@ export default function RegisterPage() {
     setLoading(true)
     setApiError('')
     try {
-      const { data } = await registerApi(form.name, form.email, form.password)
-      login(data.token)
-      navigate('/dashboard')
+      await registerApi(form.name, form.email, form.password)
+      navigate('/login')
     } catch (err: unknown) {
       const msg = (err as { response?: { data?: { message?: string } } }).response?.data?.message
       setApiError(msg ?? 'Registration failed. Please try again.')
